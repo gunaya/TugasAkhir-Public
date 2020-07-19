@@ -1,0 +1,172 @@
+{% extends "/dashboard/main.html" %}
+
+{% block content %}
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>Pengujian Manual</h1>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Proses Pengujian</h4>
+            </div>
+            <!-- body -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <label class="col-md-10 col-sm-12" for="inputFolderTraining">Upload Model Pelatihan</label>
+                            <div id="namaModel" class="col-md-2">
+                                <i class="fas fa-check-circle text-right"></i>
+                            </div>
+                            <div class="col-md-12 col-sm-12 input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputModelTraining"
+                                        name="inputModelTraining">
+                                    <label class="custom-file-label" for="inputModelTraining">Pilih Model
+                                        Pelatihan</label>
+                                </div>
+                                <button class="input-group-text" id="btnSubmitFile">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group text-center" id="atau">
+                            <label for="" class="">atau</label>
+                            <div class="input-group"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" id="inputMod">
+                        <div class="form-group row">
+                            <label class="col-md-12 col-sm-12" for="inputDatasetTraining">Pilih Model Pelatihan</label>
+                            <div class="col-md-10 col-sm-12 input-group">
+                                <select name="selectModel" id="selectModel" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12" id="inputUkuran">
+                        <div class="form-group row">
+                            <label class="col-md-12 col-sm-12" for="inputFolderTraining">Ukuran Citra</label>
+                            <div class="col-md-10 col-sm-12 input-group">
+                                <input type="number" class="form-control datepicker-autoclose" id="inputHeight" placeholder="Height">
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-success b-0 text-white">x</span>
+                                </div>
+                                <input type="number" class="form-control datepicker-autoclose" id="inputWidth" placeholder="Width">
+                            </div>
+                            <div id="validasiUkuran" class="col-md-1">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <label class="col-md-10 col-sm-12" for="inputFolderTraining">Citra Pengujian</label>
+                            <div id="namaCitra" class="col-md-2">
+                                <i class="fas fa-check-circle text-right"></i>
+                            </div>
+                            <div class="col-md-12 col-sm-12 input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputCitraTesting"
+                                        name="inputCitraTesting">
+                                    <label class="custom-file-label" for="inputCitraTesting">Pilih Citra
+                                        Pengujian</label>
+                                </div>
+                                <button class="input-group-text" id="btnSubmitCitra">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-12 col-sm-12" for="inputDatasetTraining">Pilih Dataset</label>
+                            <div class="col-md-10 col-sm-12 input-group">
+                                <select name="selectDataset" id="selectDataset" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="citra-uji">
+                    <hr>
+                    <div id="citra-display"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <button type="submit" class="btn btn-danger" id="btnPengujian">
+                            <span class="btn-label"></span>Mulai Pengujian
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Display Hasil Pengujian -->
+        <div class="card" id="cardHasilPengujian">
+            <div class="card-header">
+                <h4 class="card-title">Hasil Pengujian</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12" id="result-uji">
+                        Berdasarkan hasil pengujian, citra diidentifikasi dimiliki oleh kelas
+                        <strong id="nama_kelas"></strong>
+                        , dengan tingkat akurasi sebesar
+                        <strong id="nilai_akurasi"></strong>
+                        %
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Detail Hasil Pengujian</label>
+                    <textarea class="form-control" id="hasilTextArea" rows="25" style="height: 150px !important;" readonly></textarea>
+                </div>
+                <hr>
+                <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-1-tab" data-toggle="tab" href="#nav-1" role="tab"
+                        aria-controls="nav-1" aria-selected="true">Block 1</a>
+                    <a class="nav-item nav-link" id="nav-2-tab" data-toggle="tab" href="#nav-2" role="tab"
+                        aria-controls="nav-2" aria-selected="true">Block 2</a>
+                    <a class="nav-item nav-link" id="nav-3-tab" data-toggle="tab" href="#nav-3" role="tab"
+                        aria-controls="nav-3" aria-selected="true">Block 3</a>
+                    <a class="nav-item nav-link" id="nav-4-tab" data-toggle="tab" href="#nav-4" role="tab"
+                        aria-controls="nav-4" aria-selected="true">Block 4</a>
+                    <a class="nav-item nav-link" id="nav-5-tab" data-toggle="tab" href="#nav-5" role="tab"
+                        aria-controls="nav-5" aria-selected="true">Block 5</a>
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav-1-tab">
+
+                  </div>
+                  <div class="tab-pane fade show " id="nav-2" role="tabpanel" aria-labelledby="nav-2-tab">
+
+                  </div>
+                  <div class="tab-pane fade show " id="nav-3" role="tabpanel" aria-labelledby="nav-3-tab">
+
+                  </div>
+                  <div class="tab-pane fade show " id="nav-4" role="tabpanel" aria-labelledby="nav-4-tab">
+
+                  </div>
+                  <div class="tab-pane fade show " id="nav-5" role="tabpanel" aria-labelledby="nav-5-tab">
+
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='assets/js/testing.js') }}"></script>
+
+{% endblock %}

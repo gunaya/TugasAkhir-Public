@@ -1,0 +1,186 @@
+{% extends "/dashboard/main.html" %}
+
+{% block content %}
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>Main Dashboard</h1>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Rekap Hasil Pelatihan</h4>
+            </div>
+            <!-- body -->
+            <card class="card-body">
+                <div class="table-responsive">
+                    <table class="table dataTable cell-border" id="tabelDashboard">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Model</th>
+                                <th>Dataset</th>
+                                <th>Pretrained</th>
+                                <th>Tanggal Pelatihan</th>
+                                <th>Operasi</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </card>
+        </div>
+    </section>
+</div>
+
+<!-- Modal Detail -->
+<div id="modalDetail" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" role="document">
+        <div class="modal-header">
+            <h4 class="modal-title">Detail Hasil Pelatihan</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+            <div class="col-md-6">
+                <div class="table-responsive">
+                <table class="table table-md">
+                    <tr>
+                    <td>Nama Disimpan</td>
+                    <td>:</td>
+                    <td id="nama_simpan"></td>
+                    </tr>
+                    <tr>
+                    <td>Pre-trained</td>
+                    <td>:</td>
+                    <td id="pretrain"></td>
+                    </tr>
+                    <tr>
+                    <td>Tanggal</td>
+                    <td>:</td>
+                    <td id="tanggal"></td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="table-responsive">
+                <table class="table table-md">
+                    <tr>
+                    <td>Dataset</td>
+                    <td>:</td>
+                    <td id="dataset"></td>
+                    </tr>
+                    <tr>
+                    <td>Optimizer</td>
+                    <td>:</td>
+                    <td id="optimizer"></td>
+                    </tr>
+                    <tr>
+                    <td>Waktu Pelatihan (s)</td>
+                    <td>:</td>
+                    <td id="waktu"></td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+            </div>
+            <hr>
+            <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                <div class="card-icon bg-info">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                    <h4>Training Accuracy</h4>
+                    </div>
+                    <div class="card-body" id="acc">
+                    10
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                    <h4>Training Loss</h4>
+                    </div>
+                    <div class="card-body" id="loss">
+                    10
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                <div class="card-icon bg-success">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                    <h4>Validation Accuracy</h4>
+                    </div>
+                    <div class="card-body" id="val_acc">
+                    10
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                <div class="card-icon bg-danger">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                    <h4>Validation Loss</h4>
+                    </div>
+                    <div class="card-body" id="val_loss">
+                    10
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <hr>
+            <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-acc-tab" data-toggle="tab" href="#nav-acc" role="tab"
+                aria-controls="nav-acc" aria-selected="true">Accuracy</a>
+                <a class="nav-item nav-link" id="nav-loss-tab" data-toggle="tab" href="#nav-loss" role="tab"
+                aria-controls="nav-loss" aria-selected="false">Loss</a>
+            </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-acc" role="tabpanel" aria-labelledby="nav-acc-tab">
+                    <div id="chart-training">
+                        <canvas id="chartAcc"></canvas>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-loss" role="tabpanel" aria-labelledby="nav-loss-tab">
+                    <div id="chart-validation">
+                        <canvas id="chartLoss"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-secondary waves-effect waves-light" data-dismiss="modal"><i
+                class="mdi mdi-close"></i></span>Keluar</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{{url_for('static', filename='assets/js/dashboard.js')}}"></script>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+menambah jumlah warga dari total pada pilih desa, menambahkan total kandidat
+reset form,
+menambahkan filtering
+admin desa => pengelola kandidat
+kolom ket pembatalan, kolom valid di pilih warga
+header surveyor pada pilih desa (total, sudah termapping)
+beban surveyor didashboard, 
+tabel progress pada dashboard

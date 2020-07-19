@@ -1,0 +1,398 @@
+{% extends "/dashboard/main.html" %}
+
+{% block content %}
+<div class="main-content">
+  <section class="section">
+    <div class="section-header">
+      <h1>Pelatihan</h1>
+    </div>
+    <div class="card">
+      <!-- header -->
+      <div class="card-header">
+        <h4>Augmentasi Data Pelatihan</h4>
+      </div>
+      <!-- body -->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputValidasiTraining">Jumlah Data Validasi</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <input type="number" id="inputValidasiTraining" name="inputValidasiTraining" class="form-control">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon1">%</span>
+                </div>
+              </div>
+              <div id="validasiPersen" class="col-md-1">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="penandaInc" id="penandaInc" class="custom-control-input">
+                <label for="penandaInc" class="custom-control-label">Incremental Learning</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputFolderTraining">Ukuran Citra</label>
+              <div class="col-md-10 col-sm-12 input-group">
+                <input type="number" class="form-control datepicker-autoclose" id="inputTinggi" placeholder="Height">
+                <div class="input-group-append">
+                  <span class="input-group-text bg-danger b-0 text-white">x</span>
+                </div>
+                <input type="number" class="form-control datepicker-autoclose" id="inputLebar" placeholder="Width">
+              </div>
+              <div id="validasiUkuran" class="col-md-1">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </div>
+            
+            <div class="form-group row" id="hiddenModel">
+              <label class="col-md-12 col-sm-12">Ukuran Citra Model Pelatihan Sebelumnya</label>
+              <div class="col-md-10 col-sm-12">
+                <select id="dataModelSebelum" class="form-control selectpicker" data-live-search="on">
+
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-6 text-left">
+            <a role="button" class="btn btn-secondary" id="btnBackDataset" href="{{ url_for('dataset') }}">
+              <span class="btn-label"></span>Kembali
+            </a>
+          </div>
+          <div class="col-sm-6 text-right">
+            <button type="button" class="btn btn-danger" id="btnSubmitAugmentasi">
+              <span class="btn-label"></span>Submit Data
+            </button>
+            <button type="button" class="btn btn-light" id="btnDetailAugmentasi">
+              <span class="btn-label"></span>Lihat Detail
+            </button>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12" id="training_data"></div>
+          <div class="col-md-12" id="validasi_data"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="cardModel">
+      <div class="card-header">
+        <h4 class="card-title">Proses Pelatihan</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputPretrained">Pilih Pre-trained Model</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <select name="inputPretrained" id="inputPretrained" class="form-control">
+                  <option value="VGG19">VGG19</option>
+                  <option value="VGG16">VGG16</option>
+                  <option value="ResNet">ResNet</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputOptimizer">Pilih Optimizer</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <select name="inputOptimizer" id="inputOptimizer" class="form-control">
+                  <option value="sgd">SGD (Stochastic Gradient Descent)</option>
+                  <option value="adam">Adam</option>
+                  <option value="adamax">Adamax</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputSave">Nama Hasil Pelatihan</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <input type="text" id="inputSave" name="inputSave" class="form-control">
+              </div>
+              <div id="validasiNama" class="col-md-1">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputEpoch">Jumlah Epoch</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <input type="number" id="inputEpoch" name="inputEpoch" class="form-control">
+              </div>
+              <div id="validasiEpoch" class="col-md-1">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputLR">Learning Rate</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <input type="number" id="inputLR" name="inputLR" class="form-control">
+              </div>
+              <div id="validasiLR" class="col-md-1">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-12 text-right">
+            <button type="button" class="btn btn-danger" id="btnSubmitModel">
+              <span class="btn-label"></span>Mulai Pelatihan
+            </button>
+            <button type="button" class="btn btn-light" id="btnDetail">
+              <span class="btn-label"></span>Ringkasan Pelatihan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="cardInc">
+      <div class="card-header">
+        <h4 class="card-title">Proses Incremental Learning</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputPretrainedInc">Pilih Model Sebelumnya</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <select name="inputPretrainedInc" id="inputPretrainedInc" class="form-control">
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputOptimizerInc">Pilih Optimizer</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <select name="inputOptimizerInc" id="inputOptimizerInc" class="form-control">
+                  <option value="sgd">SGD (Stochastic Gradient Descent)</option>
+                  <option value="adam">Adam</option>
+                  <option value="adamax">Adamax</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputSaveInc">Nama Hasil Pelatihan</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <input type="text" id="inputSaveInc" name="inputSaveInc" class="form-control">
+              </div>
+              <div id="validasiNamaInc" class="col-md-1">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputEpochInc">Jumlah Epoch</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <input type="number" id="inputEpochInc" name="inputEpochInc" class="form-control">
+              </div>
+              <div id="validasiEpochInc" class="col-md-1">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 col-sm-12" for="inputLRInc">Learning Rate</label>
+              <div class="col-md-8 col-sm-12 input-group">
+                <input type="number" id="inputLRInc" name="inputLRInc" class="form-control">
+              </div>
+              <div id="validasiLRInc" class="col-md-1">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-12 text-right">
+            <button type="button" class="btn btn-danger" id="btnSubmitInc">
+              <span class="btn-label"></span>Mulai Pelatihan
+            </button>
+            <button type="button" class="btn btn-light" id="btnDetailInc">
+              <span class="btn-label"></span>Ringkasan Pelatihan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- Modal Detail Augmentasi -->
+<div id="modalDetail" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" role="document">
+      <div class="modal-header">
+        <h4 class="modal-title">Detail Citra Augmentasi</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+      </div>
+      <div class="modal-body">
+        <div id="imageAugmentasi">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Tambah -->
+<div id="modalTambah" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" role="document">
+      <div class="modal-header">
+        <h4 class="modal-title">Rekap Hasil Pelatihan</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="table-responsive">
+              <table class="table table-md">
+                <tr>
+                  <td>Nama Disimpan</td>
+                  <td>:</td>
+                  <td id="nama_simpan"></td>
+                </tr>
+                <tr>
+                  <td>Pre-trained</td>
+                  <td>:</td>
+                  <td id="pretrain"></td>
+                </tr>
+                <tr>
+                  <td>Tanggal</td>
+                  <td>:</td>
+                  <td id="tanggal"></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="table-responsive">
+              <table class="table table-md">
+                <tr>
+                  <td>Dataset</td>
+                  <td>:</td>
+                  <td id="dataset"></td>
+                </tr>
+                <tr>
+                  <td>Optimizer</td>
+                  <td>:</td>
+                  <td id="optimizer"></td>
+                </tr>
+                <tr>
+                  <td>Waktu Pelatihan (s)</td>
+                  <td>:</td>
+                  <td id="waktu"></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="card card-statistic-1">
+              <div class="card-icon bg-info">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="card-wrap">
+                <div class="card-header">
+                  <h4>Training Accuracy</h4>
+                </div>
+                <div class="card-body" id="acc">
+                  10
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="card card-statistic-1">
+              <div class="card-icon bg-warning">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="card-wrap">
+                <div class="card-header">
+                  <h4>Training Loss</h4>
+                </div>
+                <div class="card-body" id="loss">
+                  10
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="card card-statistic-1">
+              <div class="card-icon bg-success">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="card-wrap">
+                <div class="card-header">
+                  <h4>Validation Accuracy</h4>
+                </div>
+                <div class="card-body" id="val_acc">
+                  10
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="card card-statistic-1">
+              <div class="card-icon bg-danger">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="card-wrap">
+                <div class="card-header">
+                  <h4>Validation Loss</h4>
+                </div>
+                <div class="card-body" id="val_loss">
+                  10
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-acc-tab" data-toggle="tab" href="#nav-acc" role="tab"
+              aria-controls="nav-acc" aria-selected="true">Accuracy</a>
+            <a class="nav-item nav-link" id="nav-loss-tab" data-toggle="tab" href="#nav-loss" role="tab"
+              aria-controls="nav-loss" aria-selected="false">Loss</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <!-- chart acc -->
+          <div class="tab-pane fade show active" id="nav-acc" role="tabpanel" aria-labelledby="nav-acc-tab">
+            <div id="chart-training"></div>
+            <canvas id="chartJsAcc"></canvas>
+          </div>
+          <!-- chart loss -->
+          <div class="tab-pane fade" id="nav-loss" role="tabpanel" aria-labelledby="nav-loss-tab">
+            <div id="chart-validation"></div>
+            <canvas id="chartJsLoss"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary waves-effect waves-light" data-dismiss="modal"><i
+            class="mdi mdi-close"></i></span>Keluar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='assets/js/training.js') }}"></script>
+
+{% endblock %}

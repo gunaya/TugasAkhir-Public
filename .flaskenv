@@ -1,0 +1,4 @@
+FLASK_APP=writer_identification.py
+FLASK_DEBUG = 1
+FLASK_RUN_HOST =0.0.0.0
+FLASK_RUN_PORT=8050

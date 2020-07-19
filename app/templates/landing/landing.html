@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Writer Identification</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="{{ url_for('static', filename='lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="{{ url_for('static', filename='lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/animate/animate.min.css') }}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="{{ url_for('static', filename='landing/css/style.css') }}" rel="stylesheet">
+
+  <!-- =======================================================
+    Theme Name: Regna
+    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <h1><a href="#hero">Identifikasi Tulisan Tangan</a></h1>
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="#hero">Home</a></li>
+          <li><a href="#about">Tentang Project</a></li>
+          <li><a href="#services">Layanan</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Hero Section
+  ============================-->
+  <section id="hero">
+    <div class="hero-container">
+      <h1>Selamat Datang</h1>
+      <h2>Identifikasi Tulisan Tangan Menggunakan Metode Convolutional Neural Network</h2>
+      <button id="btnModal" class="btn-get-started btn-outline-primary btn" type="button">Mulai</button>
+    </div>
+  </section><!-- #hero -->
+
+  <main id="main">
+
+    <!--==========================
+      About Us Section
+    ============================-->
+    <section id="about">
+      <div class="container">
+        <div class="row about-container">
+
+          <div class="col-lg-8 content order-lg-1 order-2">
+            <h2 class="title">Beberapa Kata Terkait Tugas Akhir Ini</h2>
+            <p>
+              Identifikasi Tulisan Tangan Menggunakan Metode Convolutional Neural Network merupakan project yang dikerjakan guna memenuhi sebagian persyaratan 
+              dalam rangka menyelesaikan pendidikan sarjana strata satu (S1) Program Studi Teknologi Informasi. Topik permasalahan ini diangkat untuk menjawab rumusan masalah berikut.
+            </p>
+
+            <div class="icon-box wow fadeInUp">
+              <div class="icon"><i class="fa fa-shopping-bag"></i></div>
+              <h4 class="title"><a href="">Penerapan</a></h4>
+              <p class="description">Bagaimana penerapan dari metode convolutional neural network untuk studi kasus identifikasi penulis</p>
+            </div>
+
+            <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+              <div class="icon"><i class="fa fa-photo"></i></div>
+              <h4 class="title"><a href="">Kelebihan</a></h4>
+              <p class="description">Bagaimana kelebihan dari metode convolutional neural network untuk identifikasi penulis </p>
+            </div>
+
+            <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+              <div class="icon"><i class="fa fa-bar-chart"></i></div>
+              <h4 class="title"><a href="">Akurasi</a></h4>
+              <p class="description">Bagaimana tingkat akurasi dalam identifikasi penulis menggunakan metode convolutional neural network</p>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4 background order-lg-2 order-1 wow fadeInRight"></div>
+        </div>
+
+      </div>
+    </section><!-- #about -->
+
+    <!--==========================
+      Services Section
+    ============================-->
+    <section id="services">
+      <div class="container wow fadeIn">          
+
+        <div class="section-header">
+          <h3 class="section-title">Layanan</h3>
+          <p class="section-description">Menu yang dapat diakses dalam aplikasi ini</p>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+            <div class="box">
+              <div class="icon"><a href=""><i class="fa fa-desktop"></i></a></div>
+              <h4 class="title"><a href="">Pelatihan</a></h4>
+              <p class="description">Menu berfungsi dalam tahap pelatihan data</p>
+              <a href="{{ url_for('dataset') }}" class="btn btn-primary stretched-link">GO</a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+            <div class="box" href="">
+              <div class="icon"><a href=""><i class="fa fa-bar-chart"></i></a></div>
+              <h4 class="title"><a href="">Pengujian</a></h4>
+              <p class="description">Menu berfungsi dalam tahap pengujian.</p>
+              <a href="{{ url_for('single_testing') }}" class="btn btn-primary stretched-link">GO</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- #services -->
+
+    <!--==========================
+      Team Section
+    ============================-->
+    <section id="team">
+      <div class="container wow fadeInUp">
+        <div class="section-header">
+          <h3 class="section-title">Team</h3>
+          <p class="section-description"></p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="img/team-1.jpg" alt=""></div>
+              <h4>I Wayan Gunaya</h4>
+              <span>1605551048</span>
+              <div class="social">
+                <a href=""><i class="fa fa-twitter"></i></a>
+                <a href=""><i class="fa fa-facebook"></i></a>
+                <a href=""><i class="fa fa-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- #team -->
+
+  </main>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Identifikasi</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" id="upload-citra">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-12 col-sm-12" for="inputFolderTraining">Citra Pengujian</label>
+                    <div class="col-md-12 col-sm-12 input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputCitraTesting"
+                                name="inputCitraTesting">
+                            <label class="custom-file-label" for="inputCitraTesting">Pilih Citra
+                                </label>
+                        </div>
+                        <button class="input-group-text" id="btnSubmitCitra">Upload</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div id="citra-uji">
+            <div id="citra-display"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12" id="result-uji">
+              <hr>
+                Berdasarkan hasil identifikasi, citra teridentifikasi dimiliki oleh penulis
+                <strong id="nama_kelas"></strong>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="mulaiUji">Mulai Identifikasi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>Regna</strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!--
+          All the links in the footer should remain intact.
+          You can delete the links only if you purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Regna
+        -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="{{ url_for('static', filename='lib/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/jquery/jquery-migrate.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/wow/wow.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/counterup/counterup.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/superfish/hoverIntent.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/superfish/superfish.min.js') }}"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{{ url_for('static', filename='landing/js/main.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+</body>
+</html>
